@@ -67,10 +67,7 @@ class ContentRepository {
             actionValue: 'exit_sala',
           ),
         ],
-        exits: {
-          'exit_sala': 'scene_sala',
-          'window_view': 'scene_janela',
-        },
+        exits: {'exit_sala': 'scene_sala', 'window_view': 'scene_janela'},
       ),
       'scene_janela': Scene(
         id: 'scene_janela',
@@ -90,10 +87,8 @@ class ContentRepository {
             linkedSceneId: 'scene_quarto',
           ),
         ],
-        
-        exits: {
-          'exit_quarto': 'scene_quarto',
-        },
+
+        exits: {'exit_quarto': 'scene_quarto'},
       ),
       'scene_sala': Scene(
         id: 'scene_sala',
@@ -135,7 +130,7 @@ class ContentRepository {
             radius: 40,
             type: HotspotType.navigate,
             actionValue: 'exit_quarto',
-            icon: 'right_arrow'
+            icon: 'right_arrow',
           ),
           Hotspot(
             id: 'hotspot_ir_cozinha',
@@ -145,7 +140,7 @@ class ContentRepository {
             radius: 40,
             type: HotspotType.navigate,
             actionValue: 'exit_cozinha',
-            icon: 'down_arrow'
+            icon: 'down_arrow',
           ),
           Hotspot(
             id: 'hotspot_ir_banheiro',
@@ -155,7 +150,7 @@ class ContentRepository {
             radius: 40,
             type: HotspotType.navigate,
             actionValue: 'exit_banheiro',
-            icon: 'down_arrow'
+            icon: 'down_arrow',
           ),
           Hotspot(
             id: 'hotspot_porta_saída_casa',
@@ -165,7 +160,7 @@ class ContentRepository {
             radius: 45,
             type: HotspotType.navigate,
             actionValue: 'exit_rua',
-            icon: 'left_arrow'
+            icon: 'left_arrow',
           ),
         ],
         exits: {
@@ -173,7 +168,7 @@ class ContentRepository {
           'exit_cozinha': 'scene_cozinha',
           'exit_banheiro': 'scene_banheiro',
           'exit_rua': 'scene_rua_principal',
-          'exit_janela_sala': 'scene_janela_sala'
+          'exit_janela_sala': 'scene_janela_sala',
         },
       ),
       'scene_janela_sala': Scene(
@@ -194,10 +189,8 @@ class ContentRepository {
             linkedSceneId: 'scene_sala',
           ),
         ],
-        
-        exits: {
-          'exit_sala': 'scene_sala',
-        },
+
+        exits: {'exit_sala': 'scene_sala'},
       ),
       'scene_cozinha': Scene(
         id: 'scene_cozinha',
@@ -240,9 +233,7 @@ class ContentRepository {
             actionValue: 'exit_sala_coz',
           ),
         ],
-        exits: {
-          'exit_sala_coz': 'scene_sala',
-        },
+        exits: {'exit_sala_coz': 'scene_sala'},
       ),
       'scene_banheiro': Scene(
         id: 'scene_banheiro',
@@ -277,9 +268,7 @@ class ContentRepository {
             actionValue: 'exit_sala_ban',
           ),
         ],
-        exits: {
-          'exit_sala_ban': 'scene_sala',
-        },
+        exits: {'exit_sala_ban': 'scene_sala'},
       ),
       'scene_rua_principal': Scene(
         id: 'scene_rua_principal',
@@ -307,19 +296,19 @@ class ContentRepository {
             actionValue: 'exit_beco',
           ),
           Hotspot(
-            id: 'hotspot_caminho_escola',
-            label: 'Escola',
-            description: 'O caminho que leva até a escola.',
+            id: 'hotspot_perimetro_exclusao',
+            label: 'Perimetro exclusão',
+            description: 'O caminho que leva até o perímetro.',
             position: Offset(0.8, 0.5),
             radius: 55,
             type: HotspotType.navigate,
-            actionValue: 'exit_escola',
+            actionValue: 'exit_perimetro_exclusao',
           ),
         ],
         exits: {
           'exit_casa': 'scene_sala',
           'exit_beco': 'scene_beco',
-          'exit_escola': 'scene_rua_escola',
+          'exit_perimetro_exclusao': 'scene_perimetro_exclusao',
         },
       ),
       'scene_beco': Scene(
@@ -394,124 +383,491 @@ class ContentRepository {
             actionValue: 'exit_beco_volta',
           ),
         ],
-        exits: {
-          'exit_beco_volta': 'scene_beco',
-        },
+        exits: {'exit_beco_volta': 'scene_beco'},
       ),
-      'scene_rua_escola': Scene(
-        id: 'scene_rua_escola',
-        name: 'Caminho Escola',
-        description: 'Caminho até a escola. Ruas comuns, casas.',
-        areaName: 'Rua',
-        backgroundImage: 'assets/bedroom.png',
+      'scene_perimetro_exclusao': Scene(
+        id: 'scene_perimetro_exclusao',
+        name: 'Perímetro de Exclusão',
+        description:
+            'Cerca de arame farpado ao redor de Aethelgard. Drones patrulham o céu. O ar cheira a ozônio e fumaça.',
+        areaName: 'Aethelgard',
+        backgroundImage: 'assets/perimeter.png',
         hotspots: [
           Hotspot(
-            id: 'hotspot_escola_entrada',
-            label: 'Escola',
-            description: 'Entrada da escola. Portão de ferro.',
-            position: Offset(0.8, 0.5),
-            radius: 55,
-            type: HotspotType.navigate,
-            actionValue: 'exit_escola_entrada',
-          ),
-          Hotspot(
-            id: 'hotspot_volta_rua_principal',
-            label: 'Voltar',
-            description: 'Voltar para a rua principal.',
-            position: Offset(0.1, 0.5),
-            radius: 45,
-            type: HotspotType.navigate,
-            actionValue: 'exit_rua_volta',
-          ),
-        ],
-        exits: {
-          'exit_escola_entrada': 'scene_escola',
-          'exit_rua_volta': 'scene_rua_principal',
-        },
-      ),
-      'scene_escola': Scene(
-        id: 'scene_escola',
-        name: 'Escola - Sala de Aula',
-        description: 'Sala de aula. Carteiras, quadro, professor, Jude dormindo.',
-        areaName: 'Escola',
-        backgroundImage: 'assets/bedroom.png',
-        hotspots: [
-          Hotspot(
-            id: 'hotspot_professor',
-            label: 'Professor',
-            description: 'Professor entediado, aula de matemática.',
+            id: 'hotspot_drones_patrulha',
+            label: 'Drones de Vigilância',
+            description:
+                'Holofotes varrem o chão. Ir de dia é detecção certa; melhor agir à noite.',
             position: Offset(0.5, 0.2),
-            radius: 50,
+            radius: 45,
             type: HotspotType.examine,
           ),
           Hotspot(
-            id: 'hotspot_jude',
-            label: 'Jude',
-            description: 'Melhor amigo. Dormindo na carteira.',
-            position: Offset(0.7, 0.5),
+            id: 'hotspot_subestacao_irradiada',
+            label: 'Subestação Alpha',
+            description:
+                'Uma área altamente instável. Sem um medidor Geiger, avançar aqui é suicídio.',
+            position: Offset(0.8, 0.6),
+            radius: 55,
+            type: HotspotType.navigate,
+            actionValue: 'exit_subestacao_errada',
+          ),
+          Hotspot(
+            id: 'hotspot_cerca_cortada',
+            label: 'Cerca Rompida',
+            description:
+                'Um corte na grade que parece dar acesso aos fundos das ruínas.',
+            position: Offset(0.3, 0.7),
+            radius: 40,
+            type: HotspotType.navigate,
+            actionValue: 'exit_invasao_ruinas',
+          ),
+          Hotspot(
+            id: 'hotspot_perimetro_volta',
+            label: 'Voltar',
+            description: 'Retornar para a rua principal.',
+            position: Offset(0.05, 0.5),
+            radius: 40,
+            type: HotspotType.navigate,
+            actionValue: 'exit_rua_principal',
+            icon: 'left_arrow',
+          ),
+        ],
+        exits: {
+          'exit_subestacao_errada': 'scene_perimetro_exclusao',
+          'exit_invasao_ruinas': 'scene_ruinas',
+          'exit_rua_principal': 'scene_rua_principal',
+        },
+      ),
+      'scene_distrito_sucateiros': Scene(
+        id: 'scene_distrito_sucateiros',
+        name: 'Distrito dos Sucateiros',
+        description:
+            'Uma favela tecnológica vertical. Luzes de neon baratas piscam entre fiação exposta e becos úmidos.',
+        areaName: 'Subúrbio',
+        backgroundImage: 'assets/scrapyard_district.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_contato_madrugada',
+            label: 'Docas de Carga',
+            description:
+                'O contrabandista de tecnologia só aparece aqui durante a madrugada.',
+            position: Offset(0.75, 0.5),
+            radius: 50,
+            type: HotspotType.dialogue,
+          ),
+          Hotspot(
+            id: 'hotspot_beco_armadilha',
+            label: 'Beco Escuro',
+            description:
+                'Um atalho silencioso, mas com forte risco de emboscada se você não estiver armado.',
+            position: Offset(0.4, 0.6),
+            radius: 45,
+            type: HotspotType.navigate,
+            actionValue: 'exit_beco_errado',
+          ),
+          Hotspot(
+            id: 'hotspot_banca_pecas',
+            label: 'Banca de Sucata',
+            description:
+                'Componentes quânticos velhos e ferramentas de hacking improvisadas.',
+            position: Offset(0.2, 0.7),
+            radius: 40,
+            type: HotspotType.examine,
+          ),
+          Hotspot(
+            id: 'hotspot_sucateiros_volta',
+            label: 'Voltar',
+            description: 'Retornar para a rua principal.',
+            position: Offset(0.05, 0.9),
+            radius: 40,
+            type: HotspotType.navigate,
+            actionValue: 'exit_rua_principal',
+            icon: 'left_arrow',
+          ),
+        ],
+        exits: {
+          'exit_beco_errado': 'scene_distrito_sucateiros',
+          'exit_rua_principal': 'scene_rua_principal',
+        },
+      ),
+      'scene_arquivo_morto': Scene(
+        id: 'scene_arquivo_morto',
+        name: 'Arquivo Morto Municipal',
+        description:
+            'Prateleiras colossais de poeira e papel. O silêncio é quebrado apenas pelo zumbido das lâmpadas fluorescentes antigas.',
+        areaName: 'Centro',
+        backgroundImage: 'assets/municipal_archive.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_balcao_arquivista',
+            label: 'Balcão de Atendimento',
+            description:
+                'A arquivista só trabalha em horário comercial. À noite, o local fica sob tranca.',
+            position: Offset(0.5, 0.4),
             radius: 40,
             type: HotspotType.dialogue,
           ),
           Hotspot(
-            id: 'hotspot_entrada_biblioteca',
-            label: 'Biblioteca',
-            description: 'Entrada da biblioteca escolar.',
-            position: Offset(0.1, 0.5),
-            radius: 40,
+            id: 'hotspot_labirinto_papeis',
+            label: 'Corredor de Registros Cíveis',
+            description:
+                'Milhares de pastas antigas. Investigar sem uma coordenada precisa fará você perder horas do seu dia.',
+            position: Offset(0.85, 0.5),
+            radius: 60,
             type: HotspotType.navigate,
-            actionValue: 'exit_biblioteca',
+            actionValue: 'exit_perda_tempo',
           ),
           Hotspot(
-            id: 'hotspot_saida_escola',
-            label: 'Sair',
-            description: 'Sair da sala de aula.',
-            position: Offset(0.95, 0.5),
+            id: 'hotspot_arquivos_aethelgard',
+            label: 'Terminal Histórico',
+            description:
+                'Registros antigos da fundação do Instituto antes do sigilo corporativo.',
+            position: Offset(0.2, 0.5),
+            radius: 35,
+            type: HotspotType.examine,
+          ),
+          Hotspot(
+            id: 'hotspot_arquivo_volta',
+            label: 'Voltar',
+            description: 'Sair do prédio municipal.',
+            position: Offset(0.05, 0.8),
             radius: 40,
             type: HotspotType.navigate,
-            actionValue: 'exit_escola_saida',
+            actionValue: 'exit_rua_principal',
+            icon: 'left_arrow',
           ),
         ],
         exits: {
-          'exit_biblioteca': 'scene_biblioteca',
-          'exit_escola_saida': 'scene_rua_escola',
+          'exit_perda_tempo': 'scene_arquivo_morto',
+          'exit_rua_principal': 'scene_rua_principal',
         },
       ),
-      'scene_biblioteca': Scene(
-        id: 'scene_biblioteca',
-        name: 'Biblioteca',
-        description: 'Biblioteca da escola. Livros, computadores, silêncio.',
-        areaName: 'Escola',
-        backgroundImage: 'assets/bedroom.png',
+      'scene_floresta_estatica': Scene(
+        id: 'scene_floresta_estatica',
+        name: 'Floresta Estática',
+        description:
+            'Os limites da cidade afetados pela Fratura. Folhas flutuam congeladas no ar e a névoa entrópica distorce o horizonte.',
+        areaName: 'Periferia',
+        backgroundImage: 'assets/static_forest.png',
         hotspots: [
           Hotspot(
-            id: 'hotspot_computador',
-            label: 'Computador',
-            description: 'Terminal com arquivos municipais.',
-            position: Offset(0.5, 0.5),
+            id: 'hotspot_caixa_descarte',
+            label: 'Tronco Oco',
+            description:
+                'Um ponto onde as linhas se cruzam. Lyra deixa objetos no futuro dela que aparecem aqui para você no presente.',
+            position: Offset(0.5, 0.7),
+            radius: 40,
+            type: HotspotType.examine,
+          ),
+          Hotspot(
+            id: 'hotspot_trilha_anomala',
+            label: 'Trilha Norte',
+            description:
+                'Se o vento estiver soprando para trás, esta trilha avança. Caso contrário, você andará em círculos.',
+            position: Offset(0.8, 0.4),
+            radius: 50,
+            type: HotspotType.navigate,
+            actionValue: 'exit_loop_floresta',
+          ),
+          Hotspot(
+            id: 'hotspot_nevoa_temporal',
+            label: 'Névoa Entrópica',
+            description:
+                'A névoa diminui apenas durante o amanhecer. Cruzá-la agora causará fadiga severa.',
+            position: Offset(0.2, 0.3),
+            radius: 55,
+            type: HotspotType.examine,
+          ),
+          Hotspot(
+            id: 'hotspot_floresta_volta',
+            label: 'Voltar',
+            description: 'Deixar os limites da floresta.',
+            position: Offset(0.05, 0.6),
+            radius: 40,
+            type: HotspotType.navigate,
+            actionValue: 'exit_rua_principal',
+            icon: 'left_arrow',
+          ),
+        ],
+        exits: {
+          'exit_loop_floresta': 'scene_floresta_estatica',
+          'exit_rua_principal': 'scene_rua_principal',
+        },
+      ),
+      // Scenes from cap 2
+      'scene_apartamento_kael': Scene(
+        id: 'scene_apartamento_kael',
+        name: 'Apartamento de Monitoramento',
+        description:
+            'Seu novo lar compulsório. Pequeno, frio e vigiado. O zumbido da tornozeleira eletrônica em sua perna é constante.',
+        areaName: 'Zona de Contenção B',
+        backgroundImage: 'assets/kael_apartment.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_tornozeleira',
+            label: 'Tornozeleira Eletrônica',
+            description:
+                'Emite um pulso de rádio a cada 10 segundos. Se eu sair do perímetro urbano sem um indutor de pulso, o Setor 4 saberá instantaneamente.',
+            position: Offset(0.5, 0.85),
+            radius: 30,
+            type: HotspotType.examine,
+          ),
+          Hotspot(
+            id: 'hotspot_quadro_investigacao',
+            label: 'Mural de Linhas',
+            description:
+                'Fotos cortadas de jornais, mapas e um nome circulado em vermelho: LYRA THORNE.',
+            position: Offset(0.3, 0.4),
             radius: 60,
             type: HotspotType.examine,
           ),
           Hotspot(
-            id: 'hotspot_jornais_antigos',
-            label: 'Jornais',
-            description: 'Reportagens sobre "Catástrofe de Aethelgard".',
-            position: Offset(0.2, 0.4),
+            id: 'hotspot_janela_vigia',
+            label: 'Janela',
+            description:
+                'Uma viatura militar da DSCE está estacionada na esquina. Eles estão sempre olhando.',
+            position: Offset(0.75, 0.35),
+            radius: 45,
+            type: HotspotType.navigate,
+            actionValue: 'exit_janela_vigia',
+          ),
+          Hotspot(
+            id: 'hotspot_porta_apartamento',
+            label: 'Sair para o Corredor',
+            description: 'Acesso às escadas de incêndio do prédio.',
+            position: Offset(0.95, 0.6),
+            radius: 40,
+            type: HotspotType.navigate,
+            actionValue: 'exit_corredor',
+          ),
+        ],
+        exits: {
+          'exit_janela_vigia': 'scene_janela_vigia',
+          'exit_corredor': 'scene_distrito_sucateiros',
+        },
+      ),
+      'scene_escola_abandonada': Scene(
+        id: 'scene_escola_abandonada',
+        name: 'Escola Primária St. Jude (Fachada)',
+        description:
+            'Abandonada desde a explosão de 2026. Parquinhos enferrujados e pichações de advertência biológica nas paredes de tijolos.',
+        areaName: 'Distrito Antigo',
+        backgroundImage: 'assets/abandoned_school.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_npc_clara',
+            label: 'Zeladora Clara',
+            description:
+                'Uma senhora idosa que se recusa a deixar as redondezas da escola.',
+            position: Offset(0.65, 0.6),
+            radius: 50,
+            type: HotspotType.dialogue,
+          ),
+          Hotspot(
+            id: 'hotspot_porta_principal_escola',
+            label: 'Porta Principal',
+            description:
+                'Trancada com correntes pesadas e um cadeado eletrônico militar antigo.',
+            position: Offset(0.45, 0.55),
+            radius: 40,
+            type: HotspotType.navigate,
+            actionValue: 'exit_escola_interior',
+          ),
+          Hotspot(
+            id: 'hotspot_retorno_escola_rua',
+            label: 'Voltar',
+            description: 'Retornar para o veículo ou para o mapa urbano.',
+            position: Offset(0.05, 0.5),
+            radius: 40,
+            type: HotspotType.navigate,
+            actionValue: 'exit_rua_principal',
+            icon: 'left_arrow',
+          ),
+        ],
+        exits: {
+          'exit_escola_interior': 'scene_escola_diretoria',
+          'exit_rua_principal': 'scene_distrito_sucateiros',
+        },
+      ),
+      'scene_escola_diretoria': Scene(
+        id: 'scene_escola_diretoria',
+        name: 'Diretoria da Escola',
+        description:
+            'Armários de arquivos revirados. Cadeiras quebradas e poeira acumulada cobrindo fichas de alunos antigos.',
+        areaName: 'Escola St. Jude',
+        backgroundImage: 'assets/school_office.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_gaveteiro_t',
+            label: 'Arquivos Letras T-Z',
+            description:
+                'Onde deveriam estar os registros de "Thorne". O gaveteiro está trancado por um segredo de engrenagens mecânicas.',
+            position: Offset(0.25, 0.6),
+            radius: 45,
+            type: HotspotType.examine,
+          ),
+          Hotspot(
+            id: 'hotspot_computador_diretoria',
+            label: 'Terminal da Secretaria',
+            description:
+                'Um computador antigo com monitor de fósforo verde. Parece ter energia residual, mas pede uma senha administrativa.',
+            position: Offset(0.6, 0.5),
+            radius: 40,
+            type: HotspotType.examine,
+          ),
+          Hotspot(
+            id: 'hotspot_alcapao_subsolo',
+            label: 'Alçapão Inundado',
+            description:
+                'Leva ao porão de arquivos mortos da escola. Há um cadeado enferrujado.',
+            position: Offset(0.5, 0.85),
+            radius: 40,
+            type: HotspotType.navigate,
+            actionValue: 'exit_escola_subsolo',
+          ),
+        ],
+        exits: {'exit_escola_subsolo': 'scene_escola_subsolo'},
+      ),
+      'scene_escola_subsolo': Scene(
+        id: 'scene_escola_subsolo',
+        name: 'Subsolo da Escola',
+        description:
+            'Um porão escuro, úmido e mofado. Canos estourados gotejam água radioativa azulada. Uma densa névoa entrópica flutua aqui.',
+        areaName: 'Escola St. Jude',
+        backgroundImage: 'assets/school_basement.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_caixa_estatica',
+            label: 'Cofre Quântico Oculto',
+            description:
+                'Um cofre que não deveria pertencer a uma escola primária. Ele vibra sutilmente na mesma frequência do relógio de Lyra.',
+            position: Offset(0.5, 0.5),
             radius: 50,
             type: HotspotType.examine,
           ),
           Hotspot(
-            id: 'hotspot_volta_sala_aula',
-            label: 'Voltar',
-            description: 'Voltar para a sala de aula.',
-            position: Offset(0.95, 0.5),
+            id: 'hotspot_volta_diretoria',
+            label: 'Subir',
+            description: 'Voltar para a diretoria.',
+            position: Offset(0.05, 0.5),
             radius: 40,
             type: HotspotType.navigate,
-            actionValue: 'exit_sala_aula',
+            actionValue: 'exit_diretoria_volta',
+          ),
+        ],
+        exits: {'exit_diretoria_volta': 'scene_escola_diretoria'},
+      ),
+      // Scenes from cap 3
+      'scene_torre_base': Scene(
+        id: 'scene_torre_base',
+        name: 'Base da Torre de Oakhaven',
+        description:
+            'Uma megaestrutura de aço que rasga as nuvens. O perímetro está trancado por portões pneumáticos da DSCE e geradores de pulso blindados.',
+        areaName: 'Montanha Alta',
+        backgroundImage: 'assets/tower_base.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_portao_pneumatico',
+            label: 'Portão de Alta Segurança',
+            description:
+                'Trancado por um sistema de criptografia que exige sobrecarga de energia externa. Forçá-lo disparará os alarmes civis.',
+            position: Offset(0.5, 0.65),
+            radius: 50,
+            type: HotspotType.examine,
+          ),
+          Hotspot(
+            id: 'hotspot_gerador_blindado',
+            label: 'Subestação de Alimentação',
+            description:
+                'Alimenta a grade de defesa da torre. Precisa ser sincronizado com uma frequência reversa para abrir os portões sem alertar Vesper.',
+            position: Offset(0.8, 0.7),
+            radius: 45,
+            type: HotspotType.examine,
+          ),
+          Hotspot(
+            id: 'hotspot_mapa_retorno_torre',
+            label: 'Voltar ao Distrito',
+            description:
+                'Retornar para a oficina de Jude para buscar ferramentas.',
+            position: Offset(0.05, 0.5),
+            radius: 40,
+            type: HotspotType.navigate,
+            actionValue: 'exit_to_sucateiros',
+            icon: 'left_arrow',
           ),
         ],
         exits: {
-          'exit_sala_aula': 'scene_escola',
+          'exit_to_sucateiros': 'scene_distrito_sucateiros',
+          'exit_torre_topo': 'scene_torre_topo',
         },
+      ),
+      'scene_observatorio_antigo': Scene(
+        id: 'scene_observatorio_antigo',
+        name: 'Observatório Astronômico Abandonado',
+        description:
+            'Anexo à colina da torre. A cúpula de vidro está estilhaçada, mas o telescópio de refração quântica e os computadores de lentes ainda recebem energia.',
+        areaName: 'Montanha Alta',
+        backgroundImage: 'assets/old_observatory.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_telescopio_quantico',
+            label: 'Telescópio de Refração',
+            description:
+                'Capaz de enxergar flutuações na luz UV causadas pela distorção temporal. Essencial para mapear o epicentro do Eclipse.',
+            position: Offset(0.4, 0.45),
+            radius: 60,
+            type: HotspotType.examine,
+          ),
+          Hotspot(
+            id: 'hotspot_console_lentes',
+            label: 'Console de Alinhamento',
+            description:
+                'Controla a rotação dos espelhos da torre. Exige a calibração de três vetores magnéticos.',
+            position: Offset(0.7, 0.6),
+            radius: 40,
+            type: HotspotType.examine,
+          ),
+          Hotspot(
+            id: 'hotspot_saida_observatorio',
+            label: 'Sair para a Base',
+            description: 'Voltar para a base da torre.',
+            position: Offset(0.05, 0.8),
+            radius: 40,
+            type: HotspotType.navigate,
+            actionValue: 'exit_to_torre_base',
+          ),
+        ],
+        exits: {'exit_to_torre_base': 'scene_torre_base'},
+      ),
+      'scene_torre_topo': Scene(
+        id: 'scene_torre_topo',
+        name: 'Plataforma Superior da Torre',
+        description:
+            'Acima da névoa do mundo. O vento é violento, o céu está coalhado de estrelas estáticas que não piscam. O Motor de Transmissão ronca no centro.',
+        areaName: 'Topo do Mundo',
+        backgroundImage: 'assets/tower_apex.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_antena_transmissora',
+            label: 'Núcleo da Antena',
+            description:
+                'Onde o feixe de energia taquiônica se concentrará às 03:14.',
+            position: Offset(0.5, 0.3),
+            radius: 55,
+            type: HotspotType.examine,
+          ),
+          Hotspot(
+            id: 'hotspot_lyra_janela_30',
+            label: 'Silhueta na Névoa',
+            description:
+                'Uma mulher vestindo um sobretudo militar gasto, observando as estrelas. Ela parece forte, focada... e viva.',
+            position: Offset(0.5, 0.65),
+            radius: 70,
+            type: HotspotType.dialogue,
+          ),
+        ],
+        exits: {'exit_descida_emergencia': 'scene_torre_base'},
       ),
     };
   }
@@ -649,4 +1005,3 @@ class ContentRepository {
     );
   }
 }
-
