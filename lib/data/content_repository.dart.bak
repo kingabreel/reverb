@@ -1,0 +1,557 @@
+import '../models/scene.dart';
+import '../models/game_map.dart';
+import '../models/dialogue.dart';
+
+class ContentRepository {
+  static final ContentRepository _instance = ContentRepository._internal();
+
+  factory ContentRepository() {
+    return _instance;
+  }
+
+  ContentRepository._internal();
+
+  Act getActOne() {
+    final chapter1 = Chapter(
+      id: 'chapter_1',
+      number: '1',
+      title: 'O Fim é o Começo',
+      objective: 'Sobreviver à explosão e conhecer Lyra',
+      scenes: _getChapter1Scenes(),
+      nextChapterId: 'chapter_2',
+    );
+
+    final chapter2 = Chapter(
+      id: 'chapter_2',
+      number: '2',
+      title: 'Pegadas Inversas',
+      objective: 'Investigar o passado de seu pai',
+      scenes: _getChapter2Scenes(),
+      nextChapterId: 'chapter_3',
+    );
+
+    final chapter3 = Chapter(
+      id: 'chapter_3',
+      number: '3',
+      title: 'O Eclipse de 2031',
+      objective: 'Encontrar Lyra novamente',
+      scenes: _getChapter3Scenes(),
+      nextChapterId: null,
+    );
+
+    return Act(
+      id: 'act_1',
+      number: '1',
+      title: 'O Efeito Causal',
+      chapters: [chapter1, chapter2, chapter3],
+    );
+  }
+
+  List<Scene> _getChapter1Scenes() {
+    return [
+      Scene(
+        id: 'scene_1_1',
+        name: 'Quarto de Kael',
+        description: 'Manhã normal. Despertador toca.',
+        backgroundImage: 'assets/bedroom.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_relógio',
+            label: 'Relógio',
+            description: 'Um relógio digital comum, marcando 07:30.',
+            position: Offset(0.44, 0.1),
+            radius: 40,
+          ),
+          Hotspot(
+            id: 'hotspot_janela',
+            label: 'Janela',
+            description: 'Janelas com vista para o pátio de Aethelgard ao longe.',
+            position: Offset(0.16, 0.3),
+            radius: 60,
+          ),
+          Hotspot(
+            id: 'hotspot_sair_quarto',
+            label: 'Sair',
+            description: 'Sair do quarto.',
+            position: Offset(0.9, 0.4),
+            radius: 50,
+          ),
+          Hotspot(
+            id: 'hotspot_cama',
+            label: 'Cama',
+            description: 'Uma cama simples, com lençóis limpos.',
+            position: Offset(0.65, 0.75),
+            radius: 50,
+          ),
+        ],
+        nextSceneId: 'scene_1_2',
+      ),
+      Scene(
+        id: 'scene_1_2',
+        name: 'Rua para a escola',
+        description: 'Caminho até Aethelgard. Tudo silencioso.',
+        backgroundImage: 'assets/bedroom.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_som_distante',
+            label: 'Som distante',
+            description: 'Um rugido baixo vindo de Aethelgard. Incomum.',
+            position: Offset(0.5, 0.4),
+            radius: 50,
+          ),
+          Hotspot(
+            id: 'hotspot_beco',
+            label: 'Beco lateral',
+            description: 'Um atalho que poderia ser mais rápido.',
+            position: Offset(0.15, 0.6),
+            radius: 40,
+          ),
+        ],
+        nextSceneId: 'scene_1_3',
+      ),
+      Scene(
+        id: 'scene_1_3',
+        name: 'Ruínas de Aethelgard',
+        description: 'O instituto está destruído. Fumaça por toda parte.',
+        backgroundImage: 'assets/bedroom.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_metal_fragmento',
+            label: 'Fragmento metálico',
+            description: 'Um pedaço de metal deformado, ainda quente.',
+            position: Offset(0.3, 0.5),
+            radius: 35,
+          ),
+          Hotspot(
+            id: 'hotspot_luz_pulsante',
+            label: 'Luz pulsante',
+            description: 'Uma luz azul que pisca ritmicamente nas profundezas.',
+            position: Offset(0.7, 0.3),
+            radius: 50,
+          ),
+        ],
+        nextSceneId: 'scene_1_4',
+      ),
+      Scene(
+        id: 'scene_1_4',
+        name: 'Encontro com Lyra',
+        description: 'Uma mulher de 35 anos, caída entre os escombros.',
+        backgroundImage: 'assets/bedroom.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_lyra',
+            label: 'Lyra',
+            description: 'Uma mulher com olhos azuis elétricos, sangrando levemente.',
+            position: Offset(0.5, 0.6),
+            radius: 80,
+          ),
+          Hotspot(
+            id: 'hotspot_relogio_quebrado',
+            label: 'Relógio quebrado',
+            description: 'Um relógio de bolso com os ponteiros girando para trás.',
+            position: Offset(0.45, 0.65),
+            radius: 30,
+          ),
+        ],
+        nextSceneId: null,
+      ),
+    ];
+  }
+
+  List<Scene> _getChapter2Scenes() {
+    return [
+      Scene(
+        id: 'scene_2_1',
+        name: 'Escola - Sala de aula',
+        description: 'Três anos depois. A vida continua normal, mas Kael observa.',
+        backgroundImage: 'assets/bedroom.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_professor',
+            label: 'Professor',
+            description: 'Um professor entediado, aula de matemática.',
+            position: Offset(0.5, 0.2),
+            radius: 50,
+          ),
+          Hotspot(
+            id: 'hotspot_jude',
+            label: 'Jude',
+            description: 'Seu melhor amigo. Está dormindo.',
+            position: Offset(0.7, 0.5),
+            radius: 40,
+          ),
+        ],
+        nextSceneId: 'scene_2_2',
+      ),
+      Scene(
+        id: 'scene_2_2',
+        name: 'Biblioteca',
+        description: 'Kael pesquisa sobre Lyra em arquivos públicos.',
+        backgroundImage: 'assets/bedroom.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_computador',
+            label: 'Computador',
+            description: 'Terminal público com acesso aos arquivos municipais.',
+            position: Offset(0.5, 0.5),
+            radius: 60,
+          ),
+          Hotspot(
+            id: 'hotspot_jornais',
+            label: 'Jornais antigos',
+            description: 'Reportagens sobre a "Catástrofe de Aethelgard".',
+            position: Offset(0.2, 0.4),
+            radius: 50,
+          ),
+        ],
+        nextSceneId: 'scene_2_3',
+      ),
+      Scene(
+        id: 'scene_2_3',
+        name: 'Quarto de Kael - Noite',
+        description: 'Mural de pistas começando a se formar.',
+        backgroundImage: 'assets/bedroom.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_mural',
+            label: 'Mural de pistas',
+            description: 'Fotos, recortes e notas presas na parede.',
+            position: Offset(0.5, 0.4),
+            radius: 100,
+          ),
+          Hotspot(
+            id: 'hotspot_relogio_investigacao',
+            label: 'Relógio de Lyra',
+            description: 'O relógio sobre a mesa, os ponteiros ainda giram ao contrário.',
+            position: Offset(0.8, 0.3),
+            radius: 35,
+          ),
+        ],
+        nextSceneId: null,
+      ),
+    ];
+  }
+
+  List<Scene> _getChapter3Scenes() {
+    return [
+      Scene(
+        id: 'scene_3_1',
+        name: 'Observatório - Externa',
+        description: 'Um lugar isolado. Época de encontro. Kael espera.',
+        backgroundImage: 'assets/bedroom.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_céu_noturno',
+            label: 'Céu noturno',
+            description: 'Estrelas e uma anomalia luminosa pulsante.',
+            position: Offset(0.5, 0.2),
+            radius: 80,
+          ),
+          Hotspot(
+            id: 'hotspot_entrada_obs',
+            label: 'Entrada do Observatório',
+            description: 'Porta antiga com ferrugem.',
+            position: Offset(0.1, 0.7),
+            radius: 50,
+          ),
+        ],
+        nextSceneId: 'scene_3_2',
+      ),
+      Scene(
+        id: 'scene_3_2',
+        name: 'Interior do Observatório',
+        description: 'Telescópio quebrado, mesas de trabalho abandonadas.',
+        backgroundImage: 'assets/bedroom.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_telescopio',
+            label: 'Telescópio quebrado',
+            description: 'Uma máquina antiga, espelho rachado.',
+            position: Offset(0.5, 0.4),
+            radius: 70,
+          ),
+          Hotspot(
+            id: 'hotspot_notas_antigas',
+            label: 'Notas antigas',
+            description: 'Papéis com cálculos de física temporal.',
+            position: Offset(0.2, 0.3),
+            radius: 40,
+          ),
+        ],
+        nextSceneId: 'scene_3_3',
+      ),
+      Scene(
+        id: 'scene_3_3',
+        name: 'Ponto de Sincronia',
+        description: 'Lyra aparece. Agora ela tem 30 anos. Kael tem 20.',
+        backgroundImage: 'assets/bedroom.png',
+        hotspots: [
+          Hotspot(
+            id: 'hotspot_lyra_2031',
+            label: 'Lyra (30 anos)',
+            description: 'Mais madura que antes, mas ainda melancólica.',
+            position: Offset(0.5, 0.5),
+            radius: 90,
+          ),
+          Hotspot(
+            id: 'hotspot_relatorio',
+            label: 'Antigo relatório',
+            description: 'Um documento com timbre de Aethelgard.',
+            position: Offset(0.3, 0.7),
+            radius: 40,
+          ),
+        ],
+        nextSceneId: null,
+      ),
+    ];
+  }
+
+  DialogueTree getDialogueTree(String treeId) {
+    switch (treeId) {
+      case 'chapter_1_lyra_initial':
+        return _getChapter1LyraDialogue();
+      case 'chapter_3_lyra_eclipse':
+        return _getChapter3LyraDialogue();
+      default:
+        return _getDefaultDialogue();
+    }
+  }
+
+  DialogueTree _getChapter1LyraDialogue() {
+    final nodes = {
+      'node_1': DialogueNode(
+        id: 'node_1',
+        character: 'Lyra',
+        text: 'Você... você sobreviveu.',
+        options: [
+          DialogueOption(
+            id: 'option_1_1',
+            text: 'Quem é você?',
+            nextDialogueId: 'node_2',
+          ),
+          DialogueOption(
+            id: 'option_1_2',
+            text: 'O que aconteceu aqui?',
+            nextDialogueId: 'node_3',
+          ),
+        ],
+      ),
+      'node_2': DialogueNode(
+        id: 'node_2',
+        character: 'Lyra',
+        text: 'Não confie no jaleco branco. Promete?',
+        options: [
+          DialogueOption(
+            id: 'option_2_1',
+            text: 'Prometo.',
+            nextDialogueId: 'node_4',
+            statChanges: {'lyraConfianca': 5.0},
+          ),
+          DialogueOption(
+            id: 'option_2_2',
+            text: 'Do que você está falando?',
+            nextDialogueId: 'node_5',
+          ),
+        ],
+      ),
+      'node_3': DialogueNode(
+        id: 'node_3',
+        character: 'Lyra',
+        text: 'Tempo. O tempo quebrou.',
+        options: [
+          DialogueOption(
+            id: 'option_3_1',
+            text: 'Como isso é possível?',
+            nextDialogueId: 'node_6',
+          ),
+          DialogueOption(
+            id: 'option_3_2',
+            text: 'Você está machucada. Deixe-me ajudar.',
+            nextDialogueId: 'node_2',
+            statChanges: {'lyraConfianca': 10.0},
+          ),
+        ],
+      ),
+      'node_4': DialogueNode(
+        id: 'node_4',
+        character: 'Lyra',
+        text: 'Eu amo você. Você precisa ser forte.',
+        options: [
+          DialogueOption(
+            id: 'option_4_1',
+            text: 'Espere! Não vá!',
+            nextDialogueId: 'node_7',
+            statChanges: {'ruptura': 5.0},
+          ),
+        ],
+        itemReceived: 'relógio_quebrado',
+        isEnd: true,
+      ),
+      'node_5': DialogueNode(
+        id: 'node_5',
+        character: 'Lyra',
+        text: 'Seu pai... ele não é quem você pensa.',
+        options: [
+          DialogueOption(
+            id: 'option_5_1',
+            text: 'Meu pai?',
+            nextDialogueId: 'node_4',
+          ),
+        ],
+        clueDiscovered: 'pai_suspeito',
+      ),
+      'node_6': DialogueNode(
+        id: 'node_6',
+        character: 'Lyra',
+        text: 'Não há tempo para explicar. Você vai entender mais tarde.',
+        options: [
+          DialogueOption(
+            id: 'option_6_1',
+            text: 'Deixe-me tentar.',
+            nextDialogueId: 'node_4',
+            statChanges: {'sincronia': 5.0},
+          ),
+        ],
+      ),
+      'node_7': DialogueNode(
+        id: 'node_7',
+        character: 'Narrador',
+        text: 'Ela desaparece na luz azul, deixando apenas o relógio em sua mão tremendo.',
+        options: [],
+        isEnd: true,
+      ),
+    };
+
+    return DialogueTree(
+      id: 'chapter_1_lyra_initial',
+      npcName: 'Lyra',
+      nodes: nodes,
+      rootNodeId: 'node_1',
+    );
+  }
+
+  DialogueTree _getChapter3LyraDialogue() {
+    final nodes = {
+      'node_1': DialogueNode(
+        id: 'node_1',
+        character: 'Lyra',
+        text: 'Você está confuso. Eu também estava, a primeira vez.',
+        options: [
+          DialogueOption(
+            id: 'option_1_1',
+            text: 'Você se lembra de mim?',
+            nextDialogueId: 'node_2',
+          ),
+          DialogueOption(
+            id: 'option_1_2',
+            text: 'Como você sabe meu nome?',
+            nextDialogueId: 'node_3',
+          ),
+        ],
+      ),
+      'node_2': DialogueNode(
+        id: 'node_2',
+        character: 'Lyra',
+        text: 'Sim. Você é jovem demais ainda. Ainda não sofreu o suficiente.',
+        options: [
+          DialogueOption(
+            id: 'option_2_1',
+            text: 'O que você quer dizer?',
+            nextDialogueId: 'node_4',
+            statChanges: {'sincronia': 8.0},
+          ),
+        ],
+      ),
+      'node_3': DialogueNode(
+        id: 'node_3',
+        character: 'Lyra',
+        text: 'O diário. Você vai me dar um diário, cinco anos a partir de agora.',
+        options: [
+          DialogueOption(
+            id: 'option_3_1',
+            text: 'Você está doente?',
+            nextDialogueId: 'node_2',
+          ),
+        ],
+        clueDiscovered: 'diario_paradoxo',
+      ),
+      'node_4': DialogueNode(
+        id: 'node_4',
+        character: 'Lyra',
+        text: 'Há uma conspiração. Seu pai está vivo. Ele quer nos usar.',
+        options: [
+          DialogueOption(
+            id: 'option_4_1',
+            text: 'Meu pai morreu em 2026.',
+            nextDialogueId: 'node_5',
+          ),
+          DialogueOption(
+            id: 'option_4_2',
+            text: 'Como você sabe isso?',
+            nextDialogueId: 'node_6',
+            statChanges: {'lyraConfianca': 12.0},
+          ),
+        ],
+      ),
+      'node_5': DialogueNode(
+        id: 'node_5',
+        character: 'Lyra',
+        text: 'Ele não morreu. Ele foi para um lugar que não existe.',
+        options: [
+          DialogueOption(
+            id: 'option_5_1',
+            text: 'Você está falando em ridículos.',
+            nextDialogueId: 'node_6',
+            statChanges: {'lyraConfianca': -5.0},
+          ),
+        ],
+      ),
+      'node_6': DialogueNode(
+        id: 'node_6',
+        character: 'Lyra',
+        text: 'Você vai me entender. Quando chegar a hora.',
+        options: [
+          DialogueOption(
+            id: 'option_6_1',
+            text: 'Promete que vai me contar tudo?',
+            nextDialogueId: 'node_7',
+            statChanges: {'lyraConfianca': 15.0},
+          ),
+        ],
+      ),
+      'node_7': DialogueNode(
+        id: 'node_7',
+        character: 'Lyra',
+        text: 'Eu prometo. Mas primeiro, você precisa ser corajoso.',
+        options: [],
+        isEnd: true,
+      ),
+    };
+
+    return DialogueTree(
+      id: 'chapter_3_lyra_eclipse',
+      npcName: 'Lyra',
+      nodes: nodes,
+      rootNodeId: 'node_1',
+    );
+  }
+
+  DialogueTree _getDefaultDialogue() {
+    final nodes = {
+      'node_default': DialogueNode(
+        id: 'node_default',
+        character: 'Unknown',
+        text: 'Olá.',
+        options: [],
+        isEnd: true,
+      ),
+    };
+
+    return DialogueTree(
+      id: 'default',
+      npcName: 'Unknown',
+      nodes: nodes,
+      rootNodeId: 'node_default',
+    );
+  }
+}
