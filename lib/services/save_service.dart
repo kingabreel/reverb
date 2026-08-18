@@ -1,15 +1,16 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/game_state.dart';
 
 class SaveService {
   static const String _gameDataKey = 'reverb_game_save';
-  final Map<String, String> _memoryStorage = {};
 
   Future<void> saveGame(GameState state) async {
     try {
+      final prefs = await SharedPreferences.getInstance();
       final jsonString = jsonEncode(state.toJson());
-      _memoryStorage[_gameDataKey] = jsonString;
+      await prefs.setString(_gameDataKey, jsonString);
       if (kDebugMode) {
         print('Game saved successfully');
       }
@@ -22,7 +23,8 @@ class SaveService {
 
   Future<GameState?> loadGame() async {
     try {
-      final jsonString = _memoryStorage[_gameDataKey];
+      final prefs = await SharedPreferences.getInstance();
+      final jsonString = prefs.getString(_gameDataKey);
       if (jsonString != null) {
         final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
         return GameState.fromJson(jsonMap);
@@ -37,10 +39,12 @@ class SaveService {
   }
 
   Future<void> deleteSave() async {
-    _memoryStorage.remove(_gameDataKey);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_gameDataKey);
   }
 
-  bool hasSave() {
-    return _memoryStorage.containsKey(_gameDataKey);
+  Future<bool> hasSave() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey(_gameDataKey);
   }
 }

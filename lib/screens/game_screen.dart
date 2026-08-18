@@ -6,6 +6,8 @@ import '../models/game_map.dart';
 import '../widgets/scene_viewer.dart';
 import '../widgets/dialogue_viewer.dart';
 import '../widgets/navigation_panel.dart';
+import '../widgets/inventory_widget.dart';
+import '../widgets/statistics_widget.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -18,8 +20,10 @@ class _GameScreenState extends State<GameScreen> {
   late GameService gameService;
   late ContentRepository contentRepository;
   late GameMap gameMap;
-  late Scene currentScene;
+  Scene? currentScene;
   bool showNavigationPanel = false;
+  bool showHud = false;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -29,10 +33,15 @@ class _GameScreenState extends State<GameScreen> {
     _initializeGame();
   }
 
-  void _initializeGame() {
+  void _initializeGame() async {
+    await gameService.initializeGame();
     gameMap = contentRepository.getGameMap();
-    currentScene = gameMap.getStartScene();
-    setState(() {});
+    final savedSceneId = gameService.currentState.currentSceneId;
+    final scene = gameMap.getScene(savedSceneId) ?? gameMap.getStartScene();
+    setState(() {
+      currentScene = scene;
+      isLoading = false;
+    });
   }
 
   void _navigateToScene(String sceneId) {
@@ -42,6 +51,7 @@ class _GameScreenState extends State<GameScreen> {
         currentScene = scene;
         showNavigationPanel = false;
       });
+      gameService.updateCurrentScene(sceneId);
     }
   }
 
@@ -55,7 +65,9 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _handleHotspotInteraction(String hotspotId) {
-    final hotspot = currentScene.hotspots.firstWhere(
+    if (currentScene == null) return;
+    
+    final hotspot = currentScene!.hotspots.firstWhere(
       (h) => h.id == hotspotId,
       orElse: () => Hotspot(
         id: '',
@@ -69,13 +81,38 @@ class _GameScreenState extends State<GameScreen> {
     if (hotspot.id.isEmpty) return;
 
     if (hotspot.type == HotspotType.navigate && hotspot.actionValue != null) {
-      final destinationId = currentScene.exits[hotspot.actionValue];
+      final destinationId = currentScene!.exits[hotspot.actionValue];
       if (destinationId != null) {
         _navigateToScene(destinationId);
       }
     } else if (hotspot.type == HotspotType.dialogue) {
       _showDialogueForHotspot(hotspotId);
-    } 
+    } else if (hotspot.type == HotspotType.examine) {
+      _showExamineFeedback(hotspot);
+    } else if (hotspot.type == HotspotType.item) {
+      _collectItem(hotspot);
+    }
+  }
+
+  void _showExamineFeedback(Hotspot hotspot) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(hotspot.description),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
+  void _collectItem(Hotspot hotspot) {
+    if (hotspot.actionValue != null) {
+      gameService.addInventoryItem(hotspot.actionValue!);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Você coletou: ${hotspot.label}'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
   }
 
   void _showDialogueForHotspot(String hotspotId) {
@@ -85,6 +122,14 @@ class _GameScreenState extends State<GameScreen> {
       dialogueContext = 'ruinas_first';
     } else if (hotspotId == 'hotspot_jude') {
       dialogueContext = 'school';
+    } else if (hotspotId == 'hotspot_lyra_janela_30') {
+      dialogueContext = 'tower_top';
+    } else if (hotspotId == 'hotspot_contato_madrugada') {
+      dialogueContext = 'distrito_sucateiros';
+    } else if (hotspotId == 'hotspot_balcao_arquivista') {
+      dialogueContext = 'arquivo_morto';
+    } else if (hotspotId == 'hotspot_npc_clara') {
+      dialogueContext = 'escola_abandonada';
     }
 
     if (dialogueContext == null) return;
@@ -119,21 +164,42 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading || currentScene == null) {
+      return const Scaffold(
+        backgroundColor: Color(0xFF0A1428),
+        body: Center(
+          child: CircularProgressIndicator(color: Color(0xFF00D9FF)),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: const Color(0xFF0A1428),
       body: Column(
         children: [
           GameHeader(
-            locationName: currentScene.name,
+            locationName: currentScene!.name,
             onSave: _saveGame,
             onMenu: () => Navigator.of(context).pop(),
+            onToggleNavigation: () {
+              setState(() {
+                showNavigationPanel = !showNavigationPanel;
+              });
+            },
+            showNavigationPanel: showNavigationPanel,
+            showHud: showHud,
+            onToggleHud: () {
+              setState(() {
+                showHud = !showHud;
+              });
+            },
           ),
           Expanded(
             child: Column(
               children: [
                 Expanded(
                   child: SceneViewer(
-                    scene: currentScene,
+                    scene: currentScene!,
                     onHotspotTapped: (hotspotId) {
                       _handleHotspotInteraction(hotspotId);
                     },
@@ -144,8 +210,24 @@ class _GameScreenState extends State<GameScreen> {
                     padding: const EdgeInsets.all(16),
                     child: NavigationPanel(
                       gameMap: gameMap,
-                      currentSceneId: currentScene.id,
+                      currentSceneId: currentScene!.id,
                       onDestinationSelected: _navigateToScene,
+                    ),
+                  ),
+                if (showHud)
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: InventoryWidget(gameService: gameService),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: StatisticsWidget(gameService: gameService),
+                        ),
+                      ],
                     ),
                   ),
               ],
@@ -161,11 +243,19 @@ class GameHeader extends StatelessWidget {
   final String locationName;
   final VoidCallback onSave;
   final VoidCallback onMenu;
+  final VoidCallback onToggleNavigation;
+  final bool showNavigationPanel;
+  final bool showHud;
+  final VoidCallback onToggleHud;
 
   const GameHeader({
     required this.locationName,
     required this.onSave,
     required this.onMenu,
+    required this.onToggleNavigation,
+    required this.showNavigationPanel,
+    required this.showHud,
+    required this.onToggleHud,
     super.key,
   });
 
@@ -200,6 +290,22 @@ class GameHeader extends StatelessWidget {
                 icon: const Icon(Icons.save, color: Color(0xFF00D9FF)),
                 onPressed: onSave,
                 tooltip: 'Salvar jogo',
+              ),
+              IconButton(
+                icon: Icon(
+                  showNavigationPanel ? Icons.close : Icons.map,
+                  color: const Color(0xFF00D9FF),
+                ),
+                onPressed: onToggleNavigation,
+                tooltip: showNavigationPanel ? 'Fechar mapa' : 'Abrir mapa',
+              ),
+              IconButton(
+                icon: Icon(
+                  showHud ? Icons.visibility_off : Icons.visibility,
+                  color: const Color(0xFF00D9FF),
+                ),
+                onPressed: onToggleHud,
+                tooltip: showHud ? 'Ocultar inventário' : 'Mostrar inventário',
               ),
               IconButton(
                 icon: const Icon(Icons.menu, color: Color(0xFF00D9FF)),

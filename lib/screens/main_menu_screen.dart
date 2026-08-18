@@ -19,10 +19,13 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     _checkSave();
   }
 
-  void _checkSave() {
-    setState(() {
-      hasSave = gameService.saveService.hasSave();
-    });
+  void _checkSave() async {
+    final saveExists = await gameService.saveService.hasSave();
+    if (mounted) {
+      setState(() {
+        hasSave = saveExists;
+      });
+    }
   }
 
   void _startNewGame() async {

@@ -26,13 +26,19 @@ class GameVariable {
 
   GameVariable({required this.name, this.value = 0.0});
 
-  void increase(double amount) => value += amount;
-  void decrease(double amount) => value -= amount;
+  void increase(double amount) {
+    value = (value + amount).clamp(0.0, 100.0);
+  }
+
+  void decrease(double amount) {
+    value = (value - amount).clamp(0.0, 100.0);
+  }
 }
 
 class GameState {
   GamePhase currentPhase = GamePhase.actOne;
   GameChapter currentChapter = GameChapter.chapter1;
+  String currentSceneId = 'scene_quarto';
   
   int kaeAge = 15;
   int lyraAge = 35;
@@ -83,6 +89,7 @@ class GameState {
   Map<String, dynamic> toJson() => {
     'phase': currentPhase.index,
     'chapter': currentChapter.index,
+    'currentSceneId': currentSceneId,
     'kaeAge': kaeAge,
     'lyraAge': lyraAge,
     'sincronia': sincronia.value,
@@ -100,6 +107,7 @@ class GameState {
     final state = GameState();
     state.currentPhase = GamePhase.values[json['phase'] as int? ?? 0];
     state.currentChapter = GameChapter.values[json['chapter'] as int? ?? 0];
+    state.currentSceneId = json['currentSceneId'] as String? ?? 'scene_quarto';
     state.kaeAge = json['kaeAge'] as int? ?? 15;
     state.lyraAge = json['lyraAge'] as int? ?? 35;
     state.sincronia.value = (json['sincronia'] as num?)?.toDouble() ?? 0.0;

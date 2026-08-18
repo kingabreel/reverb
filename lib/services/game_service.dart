@@ -31,6 +31,10 @@ class GameService {
     await saveService.saveGame(currentState);
   }
 
+  void updateCurrentScene(String sceneId) {
+    currentState.currentSceneId = sceneId;
+  }
+
   void updateSincronia(double delta) {
     currentState.sincronia.increase(delta);
   }

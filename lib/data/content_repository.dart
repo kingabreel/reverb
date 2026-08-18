@@ -1,6 +1,9 @@
 import '../models/scene.dart';
 import '../models/game_map.dart';
 import '../models/dialogue.dart';
+import 'assets_map.dart';
+import 'dialogues/lyra_dialogues.dart';
+import 'dialogues/jude_dialogues.dart';
 
 class ContentRepository {
   static final ContentRepository _instance = ContentRepository._internal();
@@ -29,7 +32,7 @@ class ContentRepository {
         name: 'Quarto',
         description: 'Seu quarto. Você acorda. Uma porta à direita.',
         areaName: 'Casa',
-        backgroundImage: 'assets/bedroom.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_quarto'),
         hotspots: [
           Hotspot(
             id: 'hotspot_relógio',
@@ -74,7 +77,7 @@ class ContentRepository {
         name: 'Janela do Quarto',
         description: 'A vista da janela do quarto. O pátio está calmo.',
         areaName: 'Casa',
-        backgroundImage: 'assets/window.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_janela'),
         hotspots: [
           Hotspot(
             id: 'hotspot_volta_quarto',
@@ -95,7 +98,7 @@ class ContentRepository {
         name: 'Sala',
         description: 'A sala da casa. Sofá, TV, janelas com vista para a rua.',
         areaName: 'Casa',
-        backgroundImage: 'assets/living_room.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_sala'),
         hotspots: [
           Hotspot(
             id: 'hotspot_sofá',
@@ -176,7 +179,7 @@ class ContentRepository {
         name: 'Janela da Sala',
         description: 'A vista da janela da sala. Nada para ver aqui',
         areaName: 'Casa',
-        backgroundImage: 'assets/window_living_room.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_janela_sala'),
         hotspots: [
           Hotspot(
             id: 'hotspot_volta_sala',
@@ -197,7 +200,7 @@ class ContentRepository {
         name: 'Cozinha',
         description: 'A cozinha. Geladeira, fogão, pia com louça acumulada.',
         areaName: 'Casa',
-        backgroundImage: 'assets/kitchen.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_cozinha'),
         hotspots: [
           Hotspot(
             id: 'hotspot_geladeira',
@@ -240,7 +243,7 @@ class ContentRepository {
         name: 'Banheiro',
         description: 'O banheiro. Espelho, chuveiro, pia com azulejos brancos.',
         areaName: 'Casa',
-        backgroundImage: 'assets/bathroom.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_banheiro'),
         hotspots: [
           Hotspot(
             id: 'hotspot_espelho',
@@ -275,7 +278,7 @@ class ContentRepository {
         name: 'Rua Principal',
         description: 'A rua principal. Casas, árvores. Aethelgard ao longe.',
         areaName: 'Rua',
-        backgroundImage: 'assets/street_day.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_rua_principal'),
         hotspots: [
           Hotspot(
             id: 'hotspot_sua_casa',
@@ -316,7 +319,7 @@ class ContentRepository {
         name: 'Beco',
         description: 'Um beco escuro. Luz azul pisca nas profundezas.',
         areaName: 'Rua',
-        backgroundImage: 'assets/ruines.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_beco'),
         hotspots: [
           Hotspot(
             id: 'hotspot_ruínas_entrada',
@@ -347,7 +350,7 @@ class ContentRepository {
         name: 'Ruínas de Aethelgard',
         description: 'Instituto destruído. Fumaça, metal, luz azul pulsante.',
         areaName: 'Aethelgard',
-        backgroundImage: 'assets/deep_ruines.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_ruinas'),
         hotspots: [
           Hotspot(
             id: 'hotspot_metal_fragmento',
@@ -391,7 +394,7 @@ class ContentRepository {
         description:
             'Cerca de arame farpado ao redor de Aethelgard. Drones patrulham o céu. O ar cheira a ozônio e fumaça.',
         areaName: 'Aethelgard',
-        backgroundImage: 'assets/perimeter.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_perimetro_exclusao'),
         hotspots: [
           Hotspot(
             id: 'hotspot_drones_patrulha',
@@ -445,7 +448,7 @@ class ContentRepository {
         description:
             'Uma favela tecnológica vertical. Luzes de neon baratas piscam entre fiação exposta e becos úmidos.',
         areaName: 'Subúrbio',
-        backgroundImage: 'assets/scrapyard_district.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_distrito_sucateiros'),
         hotspots: [
           Hotspot(
             id: 'hotspot_contato_madrugada',
@@ -497,7 +500,7 @@ class ContentRepository {
         description:
             'Prateleiras colossais de poeira e papel. O silêncio é quebrado apenas pelo zumbido das lâmpadas fluorescentes antigas.',
         areaName: 'Centro',
-        backgroundImage: 'assets/municipal_archive.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_arquivo_morto'),
         hotspots: [
           Hotspot(
             id: 'hotspot_balcao_arquivista',
@@ -549,7 +552,7 @@ class ContentRepository {
         description:
             'Os limites da cidade afetados pela Fratura. Folhas flutuam congeladas no ar e a névoa entrópica distorce o horizonte.',
         areaName: 'Periferia',
-        backgroundImage: 'assets/static_forest.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_floresta_estatica'),
         hotspots: [
           Hotspot(
             id: 'hotspot_caixa_descarte',
@@ -595,14 +598,13 @@ class ContentRepository {
           'exit_rua_principal': 'scene_rua_principal',
         },
       ),
-      // Scenes from cap 2
       'scene_apartamento_kael': Scene(
         id: 'scene_apartamento_kael',
         name: 'Apartamento de Monitoramento',
         description:
             'Seu novo lar compulsório. Pequeno, frio e vigiado. O zumbido da tornozeleira eletrônica em sua perna é constante.',
         areaName: 'Zona de Contenção B',
-        backgroundImage: 'assets/kael_apartment.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_apartamento_kael'),
         hotspots: [
           Hotspot(
             id: 'hotspot_tornozeleira',
@@ -653,7 +655,7 @@ class ContentRepository {
         description:
             'Abandonada desde a explosão de 2026. Parquinhos enferrujados e pichações de advertência biológica nas paredes de tijolos.',
         areaName: 'Distrito Antigo',
-        backgroundImage: 'assets/abandoned_school.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_escola_abandonada'),
         hotspots: [
           Hotspot(
             id: 'hotspot_npc_clara',
@@ -696,7 +698,7 @@ class ContentRepository {
         description:
             'Armários de arquivos revirados. Cadeiras quebradas e poeira acumulada cobrindo fichas de alunos antigos.',
         areaName: 'Escola St. Jude',
-        backgroundImage: 'assets/school_office.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_escola_diretoria'),
         hotspots: [
           Hotspot(
             id: 'hotspot_gaveteiro_t',
@@ -735,7 +737,7 @@ class ContentRepository {
         description:
             'Um porão escuro, úmido e mofado. Canos estourados gotejam água radioativa azulada. Uma densa névoa entrópica flutua aqui.',
         areaName: 'Escola St. Jude',
-        backgroundImage: 'assets/school_basement.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_escola_subsolo'),
         hotspots: [
           Hotspot(
             id: 'hotspot_caixa_estatica',
@@ -758,14 +760,13 @@ class ContentRepository {
         ],
         exits: {'exit_diretoria_volta': 'scene_escola_diretoria'},
       ),
-      // Scenes from cap 3
       'scene_torre_base': Scene(
         id: 'scene_torre_base',
         name: 'Base da Torre de Oakhaven',
         description:
             'Uma megaestrutura de aço que rasga as nuvens. O perímetro está trancado por portões pneumáticos da DSCE e geradores de pulso blindados.',
         areaName: 'Montanha Alta',
-        backgroundImage: 'assets/tower_base.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_torre_base'),
         hotspots: [
           Hotspot(
             id: 'hotspot_portao_pneumatico',
@@ -808,7 +809,7 @@ class ContentRepository {
         description:
             'Anexo à colina da torre. A cúpula de vidro está estilhaçada, mas o telescópio de refração quântica e os computadores de lentes ainda recebem energia.',
         areaName: 'Montanha Alta',
-        backgroundImage: 'assets/old_observatory.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_observatorio_antigo'),
         hotspots: [
           Hotspot(
             id: 'hotspot_telescopio_quantico',
@@ -846,7 +847,7 @@ class ContentRepository {
         description:
             'Acima da névoa do mundo. O vento é violento, o céu está coalhado de estrelas estáticas que não piscam. O Motor de Transmissão ronca no centro.',
         areaName: 'Topo do Mundo',
-        backgroundImage: 'assets/tower_apex.png',
+        backgroundImage: AssetsMap.getBackgroundForScene('scene_torre_topo'),
         hotspots: [
           Hotspot(
             id: 'hotspot_antena_transmissora',
@@ -874,132 +875,52 @@ class ContentRepository {
 
   DialogueTree getDialogueForNpc(String npcId, String context) {
     if (npcId == 'lyra' && context == 'ruinas_first') {
-      return _getLyraFirstEncounter();
+      return LyraDialogues.getLyraFirstEncounter();
     }
     if (npcId == 'jude' && context == 'school') {
-      return _getJudeDialogue();
+      return JudeDialogues.getJudeSchoolDialogue();
     }
-    return DialogueTree(
-      id: 'empty',
-      npcName: 'Unknown',
-      nodes: {},
-      rootNodeId: 'root',
-    );
+    if (npcId == 'lyra' && context == 'tower_top') {
+      return LyraDialogues.getLyraTowerDialogue();
+    }
+    if (npcId == 'lyra' && context == 'distrito_sucateiros') {
+      return LyraDialogues.getContatoMadrugadaDialogue();
+    }
+    if (npcId == 'lyra' && context == 'arquivo_morto') {
+      return LyraDialogues.getBalcaoArquivistaDialogue();
+    }
+    if (npcId == 'lyra' && context == 'escola_abandonada') {
+      return LyraDialogues.getClaraDialogue();
+    }
+    return _getFallbackDialogue(npcId, context);
   }
 
-  DialogueTree _getLyraFirstEncounter() {
+  DialogueTree _getFallbackDialogue(String npcId, String context) {
     final nodes = {
       'node_1': DialogueNode(
         id: 'node_1',
-        character: 'Lyra',
-        text: 'Você... você é real?',
+        character: npcId.toUpperCase(),
+        text: '[$npcId] Este diálogo ainda não foi implementado.',
         options: [
           DialogueOption(
             id: 'option_1_1',
-            text: 'Quem é você?',
-            nextDialogueId: 'node_2',
-          ),
-          DialogueOption(
-            id: 'option_1_2',
-            text: 'O que aconteceu aqui?',
-            nextDialogueId: 'node_3',
+            text: 'Voltar',
+            nextDialogueId: 'node_end',
           ),
         ],
       ),
-      'node_2': DialogueNode(
-        id: 'node_2',
-        character: 'Lyra',
-        text: 'Meu nome é Lyra. Eu trabalhava aqui. Antes.',
-        options: [
-          DialogueOption(
-            id: 'option_2_1',
-            text: 'Você está ferida?',
-            nextDialogueId: 'node_4',
-            statChanges: {'confiança': 5.0},
-          ),
-        ],
-      ),
-      'node_3': DialogueNode(
-        id: 'node_3',
-        character: 'Lyra',
-        text: 'O tempo não funciona aqui como deveria.',
-        options: [
-          DialogueOption(
-            id: 'option_3_1',
-            text: 'Como assim?',
-            nextDialogueId: 'node_5',
-          ),
-        ],
-      ),
-      'node_4': DialogueNode(
-        id: 'node_4',
-        character: 'Lyra',
-        text: 'Não é nada. Você precisa ir.',
-        options: [
-          DialogueOption(
-            id: 'option_4_1',
-            text: 'Deixe-me ajudar.',
-            nextDialogueId: 'node_6',
-            statChanges: {'ruptura': -5.0},
-          ),
-        ],
-      ),
-      'node_5': DialogueNode(
-        id: 'node_5',
-        character: 'Lyra',
-        text: 'Sem tempo para explicar. Você entenderá depois.',
-        options: [
-          DialogueOption(
-            id: 'option_5_1',
-            text: 'Eu vou descobrir.',
-            nextDialogueId: 'node_6',
-            statChanges: {'sincronia': 5.0},
-          ),
-        ],
-      ),
-      'node_6': DialogueNode(
-        id: 'node_6',
-        character: 'Lyra',
-        text: 'Talvez você seja diferente. Adeus.',
+      'node_end': DialogueNode(
+        id: 'node_end',
+        character: '',
+        text: '',
         options: [],
         isEnd: true,
       ),
     };
 
     return DialogueTree(
-      id: 'lyra_ruins_first',
-      npcName: 'Lyra',
-      nodes: nodes,
-      rootNodeId: 'node_1',
-    );
-  }
-
-  DialogueTree _getJudeDialogue() {
-    final nodes = {
-      'node_1': DialogueNode(
-        id: 'node_1',
-        character: 'Jude',
-        text: 'Ei, acordou! Aula entediante, né?',
-        options: [
-          DialogueOption(
-            id: 'option_1_1',
-            text: 'Vamo para a biblioteca?',
-            nextDialogueId: 'node_2',
-          ),
-        ],
-      ),
-      'node_2': DialogueNode(
-        id: 'node_2',
-        character: 'Jude',
-        text: 'Claro. Preciso dormir mais.',
-        options: [],
-        isEnd: true,
-      ),
-    };
-
-    return DialogueTree(
-      id: 'jude_school',
-      npcName: 'Jude',
+      id: 'fallback_${npcId}_$context',
+      npcName: npcId,
       nodes: nodes,
       rootNodeId: 'node_1',
     );
